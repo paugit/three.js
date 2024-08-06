@@ -1517,9 +1517,13 @@ class OrbitControls extends EventDispatcher {
 		scope.domElement.addEventListener( 'pointercancel', onPointerUp );
 		scope.domElement.addEventListener( 'wheel', onMouseWheel, { passive: false } );
 
-		const document = scope.domElement.getRootNode(); // offscreen canvas compatibility
+		if ( typeof scope.domElement.getRootNode === 'function' ) {
 
-		document.addEventListener( 'keydown', interceptControlDown, { passive: true, capture: true } );
+			const document = scope.domElement.getRootNode(); // offscreen canvas compatibility
+
+			document.addEventListener( 'keydown', interceptControlDown, { passive: true, capture: true } );
+
+		}
 
 		// force an update at start
 
